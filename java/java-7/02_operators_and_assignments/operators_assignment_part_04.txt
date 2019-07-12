@@ -1,0 +1,296 @@
+Operators & Assignments - Part-04: short-circuit operators (&& , ||)
+----------------------------------------------------------------------
+
+	- short-circuit operators (&&, ||):
+	
+		- These are exactly same as bitwise operators (&, |) except the following differences.
+		
+			&, |										&&, ||
+		---------------------------------------------------------------------------------------
+		
+		1) Both arugments should be evaluated		1) Second argument evaluation is optional.
+		   always.
+		   
+		2) Relatively performance is low			2) Relatively performance is high.
+		
+		3) Applicable for both boolean and			3) Applicable only for boolean but not for integral types.
+		   integral types.
+		   
+		   
+		- Note:
+		
+			- x && y
+			
+				- y will be evaluated iff x is true. That is if x is false then y won't be evaluated.
+				
+			- x || y
+			
+				- y will be evaluated iff x is false. That is, if x is true then y won't be evaluated.
+				
+		- Example_1:
+		
+			int x = 10;
+			
+			int y = 15;
+			
+			if(++x < 10 & ++y > 15){
+				x++;
+			}
+			else{
+				y++;
+			}
+			System.out.println(x+"...."+y);
+			
+				x			y
+				
+			&	11			17
+			
+			&& 	11			16
+			
+			|	12			16
+
+			||	12			16
+			
+		- Example_2:
+		
+			int x = 10;
+			
+			if(++x < 10 && (x/0 > 10)){
+				System.out.println("Hello");
+			} else {
+				System.out.println("Hi");
+			}
+			
+			Output:
+			
+				1) CE
+				
+				2) RE: AE: / by 0
+				
+				3) Hello
+				
+				4) Hi - Answers.
+				
+			Note: If we replace the && with & in the above expression, then we will get Runtime Exception saying. Arithmetic Exception: / by zero.
+			
+	- Type-cast operator:
+	
+		- There are two types of type casting.
+		
+			- Implicit type casting.
+			
+			- Explicit type casting.
+			
+		- Implicit type-casting:
+		
+			- Compiler is responsible to perform implicit type casting.
+			
+			- Whenever we are assigning smaller datatype value to bigger data type variable, implicit type casting will be performed.
+			
+			- It is also know as widening or upcasting.
+			
+			- There is no loss of information in this type-casting.
+			
+			- The following are various possible conversions where implicit type casting will be performed.
+			
+				byte --> short -->
+				
+									--> int --> long --> flot --> double
+									
+						 chart -->
+						 
+			- Example_1:
+			
+				int x = 'a';
+				System.out.println(x);
+				
+				Output: 97
+				
+				Note: compiler converts char to int automatically by implicit type-casting.
+				
+				double d = 10;
+				System.out.println(d);
+				
+				Output: compiler converts int to double automatically by implicit type-casting.
+				
+		- Explicit type-casting:
+		
+			- Programmer is responsible to perform explicity type-casting.
+			
+			- Whenever we are assigning bigger data type value to smaller data type variable, then explicit type-casting is required.
+			
+			- It is also know as narrowing or downcasting.
+			
+			- There may be a chance of loss of information in this type-casting.
+			
+			- The following are various possibilities where explicit type-casting is required.
+			
+			
+				byte <-- short <--
+				
+									int <-- long <-- float <-- double
+									
+						char <--
+						
+				Note: When we move:
+				
+						- left to right --> It's implicit type-casting.
+						
+						- right to left --> It's explicit type-casting.
+						
+			- Example:
+			
+				int x = 10;
+				
+				byte b = x;
+				
+				System.out.println(b);
+				
+				CE: possible loss of precision.
+					found: int
+					required: byte
+					
+				int x = 10;
+				
+				byte b = (byte)x;
+				
+				System.out.println(b);
+				
+				Output: -126
+				
+			- Note:
+			
+				- Whenever we are assigning bigger data type value to small data type variable by explicit type-casting, the most significant bits
+				  will be lost, we have to consider only LSB (least significant bits).
+				  
+				- Example_1:
+				
+					int x = 130; ===> 0000 ...10000010
+					
+					130
+					---
+					65 - 0
+					--
+					32 - 1
+					--
+					16 - 0
+					--
+					8 - 0
+					--
+					4 - 0
+					--
+					2 - 0
+					-
+					1 - 0
+					
+				byte b = (byte)x; // 10000010 (only the least significant bits are considered for calculation).
+				
+				first bit defines the sign (1 ==> -ve, 0 ==> positive)
+				
+				so -
+				
+				If it's negative, then final value is calculated with 2's complement.
+				
+				1's ==> 1111101
+				2's ==> 1111111
+						-------
+						1111110	   	
+					
+						2p6 + 2p5 + 2p4 + 2p3 + 2p1 + 2p0
+						
+						63  + 32  + 16  + 8  + 4 + 2 + 0
+						
+						= -126
+						
+				- Example_2:
+				
+					int  x = 150;      ===> 0000....10010110
+					
+					short s = (short) s;
+					
+					System.out.println(s);
+					
+					byte b = (byte)x;
+					
+					System.out.println(b);
+					
+					150 in binary form:
+					
+						150
+						---
+						75 - 0
+						---
+						37 - 1
+						---
+						18 - 1
+						---
+						9  - 0
+						---
+						4  - 1
+						---
+						2 -  0
+						--
+						1  - 0
+						
+					short size is 16 bits, so take the 16bits from LSB.
+					
+					0000 0000 1000 0010
+					
+					most significant bit (signed bit) value is 0, which means positive.
+					
+					Then the final output is 150
+					
+					- For byte type-casting, size of byte is 8 bits, so take the 8 bits from the LSB.
+					
+						1001 0110
+						
+						signed bit value is 1, which means negative, so take the two complement to get the final answer.
+						
+						1's complement ===> 110 1001
+						
+						2's complement ===>	111 1111
+
+											-----------
+											110 1010
+											-----------
+											
+						2p6 x 1 = 64
+						
+						2p5 x 1 = 32
+						
+						2p4 x 0 = 0
+						
+						2p3 x 1 = 8
+						
+						2p2 x 0 = 0
+						
+						2p1 x 1 = 2
+						
+						2p0 x 0 = 0
+						
+								----- 
+								106
+								----
+								
+					- Output: -106
+					
+				- Example_3:
+				
+					- If we assign floating point values to the integral types by explicit type casting, the digits after the decimal points will be
+					  lost
+					  
+						double d = 130.345
+						
+						int x = (int) d;
+						
+						System.out.println(x); // 130
+						
+						byte b = (byte) d;
+						
+						System.out.println(x); // -126
+						
+						- Note: For byte, first the digits will be omited, if the remaining value is with the byte range, the value will be the same.
+						        If the value is more than the byte range, then the calculation will happen as explained above.
+					
+						
+			

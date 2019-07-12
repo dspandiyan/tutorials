@@ -1,0 +1,31 @@
+Flow-Control - Part-01: Introduction
+------------------------------------
+
+	- Introduction:
+	
+		- Flow-Control describes the order in which the statements will be executed at runtime.
+		
+		- Flow-Control catageory:
+		
+		
+		
+		
+							==> 1) Selection Statement:
+							
+								1. if-else
+								2. swithch()
+									
+			Flow-Control	==> 2) Iterative Statement:
+			
+								1. while()
+								2. do-while()
+								3. for()
+								4. for-each loop (introduced in 1.5 version)
+								
+							==> 3) Transfer Statement:
+							
+								1. break
+								2. continue
+								3. return
+								4. try-catch-finally
+								5. assert(1.4 version)

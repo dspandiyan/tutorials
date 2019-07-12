@@ -1,0 +1,209 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww33100\viewh17980\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs28 \cf0 Declarations & Access Modifiers - Part-07 - Member level modifiers:\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+	- strictfp [Strict Floating Point] Modifier:\
+\
+		- Introduced in 1.2 Version.\
+\
+		- We can declare strictfp for classes and methods but not for variables.\
+		\
+		- Usually the result of floating point arithmetic is varied from platform to platform, if we want platform independent results for floating point arithmetic then we should go for strictfp modifier.\
+\
+	- strictfp method:\
+\
+		- If a method declared as strictfp all floating point calculations in that method has to follow IEEE754 standard, so that we will get platform independent results.\
+\
+		- abstract modifier never talks about implementation whereas strictfp method always talks about implementation. Hence abstract and strictfp combination is illegal for methods.\
+\
+	- strictfp class:\
+\
+		- If a class declared as strictfp then every floating point calculation present in every \'93concrete method\'94 has to follow IEEE 754 standard. So that we will get platform independent results.\
+\
+		- We can declare abstract strictfp combination for classes that is abstract strictfp combination is legal for classes but illegal for methods.\
+\
+		- Example:\
+\
+			abstract strictfp class Test\{\
+			\}\
+\
+			Valid\
+\
+			abstract strictfp void m1(); // CE: illegal combination of modifiers: abstract and strictfp\
+\
+	- Member (Method or Variable level) modifiers:\
+\
+		- public members:\
+\
+			- If a member declared as public then we can access that member from anywhere. But corresponding class should be visible. That is before checking member visibility we have to check class visibility.\
+\
+			- Example:\
+\
+				package pack1;\
+\
+				class A\{\
+					public void A\{\
+						System.out.println(\'93A class method\'94);\
+					\}\
+				\}\
+				\
+				javac -d . A.java\
+\
+				package pack2;\
+\
+				import pack1.A;\
+\
+				class B\{\
+					public static void main(String[] args)\{\
+						Test t = new Test();\
+						t.m1();\
+					\}\
+				\}\
+				\
+				javac -d B.java\
+\
+				CE: pack1.A is not public in pack1; cannot be accessed from outside package\
+\
+				- In the above example even though m1 method is public we can\'92t access from outside package because the corresponding class A is not public. That is if both class and method are public then only we can access the method from outside package.\
+\
+		- default members:\
+\
+			- If a member declared as default then we can access that member only within the current package from outside of the package we can\'92t access, hence default access is also known as package level access.\
+\
+		- private members:\
+\
+			- If a member is private then we can access that member only within the class that is from outside of the class we can\'92t access.\
+		\
+			- Abstract methods should be available to the child classes to provide implementation, whereas private methods are not available to the child classes. Hence private abstract combination is illegal for methods.\
+		\
+		- protected members (The most misunderstood modifier in Java):\
+\
+			- If a member declared as protected then we can access that member anywhere within the current package but only in child classes of outside package.\
+\
+				protected = default + kids\
+\
+			- We can access protected members within the current package anywhere either by using parent reference or by using child reference.\
+	\
+			- But we can access protected members in outside package only in child classes and we should use child reference only. That is parent reference cannot be used to access protected members from outside package.\
+\
+			- Example:\
+\
+				package pack1;\
+\
+				public class A\{\
+					protected void m1()\{\
+						System.out.println(\'93The most misunderstood modifier\'94);\
+					\}\
+				\}\
+\
+				class B extends A\{\
+					public static void main(String[] args)\{\
+						A a = new A();\
+\
+						a.m1();\
+\
+						B b = new B();\
+\
+						b.m1();\
+\
+						A aa = new B();\
+\
+						a1.m1();\
+					\}\
+				\}\
+\
+				javac -d . A.java\
+\
+				java pack1.B;\
+\
+				package pack2;\
+				import pack1.A;\
+\
+				class C extends A\{\
+					public static void main(String[] args)\{\
+						A a = new A();\
+						a.m1(); // Invalid compile time error\
+						\
+						C c = new C();\
+						b.m1();\
+\
+						A a1 = new C();\
+						a1.m1(); // Invalid compile time error\
+					\}\
+				\}\
+\
+				CE: m1() has protected access in pack1.A\
+\
+			- We can access protected members from outside package only in child classes and we should use that child class reference only. For example from D class if we want to access we should use D class reference only.\
+\
+			- Example:\
+\
+				package pack2;\
+\
+				import pack1.A;\
+\
+				class C extends A\{\
+				\}\
+\
+				class D extends C\{\
+					public static void main(String[] args)\{\
+						A a = new A();\
+						a.m1();\
+\
+						C c = new C();\
+						c.m1();\
+\
+						D d = new D(); // Only this is valid remaining are invalid.\
+						d.m1();\
+\
+						A a1 = new C();\
+						a1.m1();\
+\
+						A a2 = new D();\
+						a2.m1();\
+\
+						A c1 = new C();\
+						c1.m1();\
+\
+					\}\
+				\}\
+		\
+				Output: only the third case is valid, for the remaining cases we will get the following CE:\
+\
+				CE: m1() has protected access in pack1.A\
+\
+		- Summary table of private, default, protected and public modifiers:\
+\
+			Visibility							private       default        protected                                               public\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+	with in the same class                                        YES         YES           YES                                                          YES\
+\
+	from child class of same package                       NO          YES           YES                                                          YES\
+\
+       From non child class of same package               NO           YES          YES                                                           YES\
+\
+	From child class of outside package                   NO            NO           YES(we should use child reference)         YES\
+\
+	From non-child class of outside package            NO            NO           NO                                                             YES\
+\
+\
+		- The most restricted access modifier is private.\
+\
+		- The most accessible modifier is public.\
+\
+			private < default < protected < public\
+\
+		- Recommended modifier for data member (variable) is private.\
+\
+		- Recommended modifier for methods is public.\
+\
+			\
+\
+	}

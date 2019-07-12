@@ -1,0 +1,171 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww33100\viewh18020\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs28 \cf0 Declarations & Access Modifiers - Part-03 - Import & Static Import:\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+	- Explain about System.out.println:\
+\
+		- Example:\
+\
+			class Test\{\
+				static String s = \'93Java\'94;\
+			\}\
+\
+			Test.s.length();\
+\
+			Test \'97> Test is class name.\
+\
+			s \'97>  Is a static variable present in Test class of type String.\
+\
+			length() \'97>  Is a method present in String class.\
+\
+			Similarly \
+\
+			class System \{\
+				static PrintStream out;\
+			\}\
+\
+			System \'97> Is a class present in java.lang package.\
+\
+			out \'97> Is a static variable present in System class of type PrintStream.\
+\
+			println() \'97> Is a method in PrintStream class.\
+\
+		- Out is a static variable present in System class, hence we can access by using class name system. But whenever we are writing static import it is not required to use class name and we can access \'93out\'94 directly.\
+\
+			- Example:\
+\
+\
+				import static java.lang.System.out;\
+\
+				class Test\{\
+					public static void main(String[] args)\{\
+						out.println(\'93Hello\'94);\
+						out.println(\'93Hi\'94);\
+					\}\
+				\}\
+\
+				Output: \
+\
+					Hello\
+\
+					Hi\
+\
+				import static java.lang.Integer.*;\
+				import static java.lang.Byte.*;\
+\
+				class Test\{\
+					public static void main(String[] args)\{\
+						System.out.println(MAX_VALUE);\
+					\}\
+				\}\
+\
+				Output: \
+\
+					CE:  reference to MAX_VALUE is ambiguous\
+\
+			- While resolving static members compiler will always consider, the precedence in the following order.\
+\
+				1) Current class static members.\
+\
+				2) Explicit static import.\
+\
+				3) Implicit static import.\
+\
+				- Example:\
+\
+				import static java.lang.Integer.MAX_VALUE;\
+				import static java.lang.Byte.*;\
+\
+				class Test\{\
+					public static void main(String[] args)\{\
+						static int MAX_VALUE = 999;\
+						System.out.println(MAX_VALUE);\
+					\}\
+				\}\
+\
+\
+				Output:\
+\
+					999\
+\
+				If we comment static int MAX_VALUE = 999; Explicit static import is considered, hence the Integer MAX_VALUE will get the chance and the output is 2147483648\
+\
+				If we comment both static int MAX_VALUE = 999 and import static java.lang.Integer.MAX_VALUE; Then the output is 127 [Byte class max value]\
+\
+			- Syntax:\
+\
+				- Normal Import:\
+\
+					- Explicit import:\
+\
+						Syntax: import packagename.classname;\
+\
+						Example: import java.util.ArrayList;\
+\
+					- Implicit import:\
+\
+						Syntax: import packagename.*;\
+\
+						Example: java.util.*;\
+\
+				- Static import:\
+\
+					- Explicit Import:\
+\
+						Syntax: import static packagename.classname.staticmember;\
+\
+								Note: static member could be variable or method.\
+\
+						Example: import static java.lang.Math.sqrt;\
+						\
+								import static java.util.regex.Pattern;\
+\
+								import static java.lang.System.out;\
+\
+					- Implicit Import:\
+\
+						Syntax: import static packagename.classname.*;\
+\
+						Example: import static java.lang.Math.*;\
+								  import static java.lang.System.*;\
+\
+			- Which of the following import statements are valid?\
+\
+				import java.lang.Math.*; // Invalid, because static keyword is missing\
+\
+				import static java.lang.Math.*; // Valid\
+\
+				import java.lang.Math.sqrt; // Invalid, because static keyword is missing\
+\
+				import static java.lang.math.sqrt(); // Invalid, staticmember has to be access just with name not with the method with ()\
+\
+				import java.lang.Math.sqrt.*; // Invalid\
+\
+				import static java.lang.Math.sqrt; // Valid\
+\
+				import java.lang; // Invalid\
+\
+				import static java.lang; // Invalid\
+\
+				import java.lang.*; //Valid\
+\
+				import static java.lang.*; // Invalid, for static import * is allowed after the class name not after the package name.\
+\
+			- Two packages contain a class or interface with a same name is very rare and hence ambiguity problem is also very rare in normal import.\
+\
+			- But two classes or interfaces contain a variable or method with same name is very common and hence ambiguity problem is also very common problem in static import.\
+\
+			- Usage of static import reduces readability and creates confusion and hence if there is no specific requirement then it is not recommended to use static import. \
+\
+		- Difference between normal import and static import:\
+\
+			- We can use normal import to import classes and interfaces of a particular package, whenever we are writing normal import it is not required to use fully qualified name and we can use short names directly.\
+\
+			- We can use static import to import static members of a particular class or interface. Whenever we are writing static import it is not required to use classname to access static members and we can access directly.\
+					}

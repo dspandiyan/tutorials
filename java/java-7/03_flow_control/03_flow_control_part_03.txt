@@ -1,0 +1,312 @@
+Flow-Control - Part-03: Selection Statement (switch)
+-----------------------------------------------------
+
+	- If several options are available then it's not recommended to use nested if-else because it reduces readability.
+	
+	- To handle this requirement we should go for switch statement.
+	
+	- Syntax:
+	
+		switch(x){
+			case 1:
+				action1;
+				break;
+			
+			case 2: 
+				action2;
+				break;
+				.
+				.
+				.
+				.
+			case n:
+				action-n;
+				break;
+				
+			default:
+				default-action;
+		}
+		
+	- The allowed argument types for the switch statement are:
+	
+		- byte
+		
+		- short
+		
+		- char
+		
+		- int 
+		
+		Until 1.4 version
+		
+		- But from 1.5 version onwards, corresponding wrapper classes and ENUM type also allowed.
+		
+		- From 1.7 version onwards, String type also allowed.
+		
+		- Tabular form
+		
+			1.4 V		1.5 V		1.7V
+			
+			byte		Byte		String
+			
+			short		Short
+			
+			char		Character
+			
+			int			Integer
+			
+						ENUM
+						
+	- Curly braces are mandatory, except switch everywhere curly braces are optional.
+	
+	- Both case and default are optional that is empty switch statement is a valid java syntax.
+	
+		- Example:
+		
+			int x = 10;
+			
+			switch(x){
+			
+			}
+			
+	- Inside switch every statement should be under some case or default. That is independent statements are not allowed switch. Otherwise we will get
+	  compile time error.
+	  
+		- Example:
+		
+			int x = 10;
+			
+			switch(x){
+				System.out.println("Hello");
+			}
+			
+			Output: CE: case, default or } expected.
+			
+	- Every case label should be compile time constant (that is, constant expression)
+	
+		- Example:
+		
+			int x = 10;
+			
+			int y = 20;
+			
+			switch(x){
+				case 10:
+					break;
+					
+				case y:
+					break;
+			}
+			
+			Output: CE: constant expression required.
+			
+			Note: If we declare y as final then we won't get any compile time error.
+			
+	- Both switch argument and case label can be expressions. But case label should be constant expression.
+	
+		- Example:
+		
+			int x = 10;
+			
+			switch(x + 1){
+				case 10:
+				
+					System.out.println(10);
+					break;
+					
+				case 20+30+40:
+					System.out.println(60);
+			}
+			
+	- Every case label should be in the range of switch argument type. Otherwise we will get compile time error.
+	
+		- Example_1:
+		
+			byte b = 10;
+			
+			switch(b){
+				case 1:
+					System.out.println(10);
+					break;
+				
+				case 100:
+					System.out.println(100);
+					break;
+					
+				case 1000:
+					System.out.println(1000);
+					break;
+			}
+			
+			Output: CE: possilbe loss of precision
+						found: int
+						required: byte
+						
+		- Example_2:
+		
+			byte b = 10;
+			
+			switch(b+1){
+				case 1:
+					System.out.println(10);
+					break;
+				
+				case 100:
+					System.out.println(100);
+					break;
+					
+				case 1000:
+					System.out.println(1000);
+					break;
+			}
+			
+			Output: //valid
+			
+	- Duplicate case labels are not allowed. Otherwise we will get compile time error.
+	
+		int x =10;
+		
+		switch(x){
+			case 97:
+				System.out.println(97);
+				break;
+			case 98:
+				System.out.println(98);
+				break;
+				
+			case 99:
+				System.out.println(99);
+				break;
+				
+			case 'a':
+				System.out.println(100);
+				break;
+		}
+		
+		Output: CE: duplicate case label.
+		
+	- Case label:
+	
+		- It should be constant expression.
+		
+		- The value should be in the range of switch argument type.
+		
+		- Duplicate case labels are not allowed.
+		
+	- Fall through inside switch:
+	
+		- Within the switch if any case is matched from the case onwards all statements will be executed until break or end of the switch.
+		  This is called fall through inside switch.
+		  
+		- The main advantage of fall through inside switch is we can define common action for multiple cases. (Code reusability).
+		
+			- Example_1:
+			
+				switch(x){
+					case 1:
+					
+					case 2:
+					
+					case 3:
+						System.out.println("q4");
+						break;
+						
+					case 4:
+					
+					case 5:
+					
+					case 6:
+						System.out.println("q1");
+						break;
+				}
+				
+			- Example_2
+			
+				switch(x){
+					case 0:	
+						System.out.println(0);
+						
+					case 1: 
+						System.out.println(1);
+						break;
+						
+					case 2:
+						System.out.println(2);
+						
+					default:
+						System.out.println("def");
+					
+				}
+				
+				Output for the following cases:
+				
+				x = 0
+				
+					0
+					1
+					
+				x = 1
+				
+					1
+					
+				x = 2
+				
+					2
+					def
+					
+				x = 3
+					
+					def
+					
+	- Default case:
+	
+		- Within the switch we can take default case atmost once.
+		
+		- Default case will be executed, iff there is no case matched.
+		
+		- Within the switch we can write default case anywhere but its recommended to write as last case.
+		
+		- Example:
+		
+			switch(x){
+				default:
+					System.out.println("def");
+					
+				case 0:
+					System.out.println(0);
+					break;
+					
+				case 1:
+					System.out.println(1);
+					
+				case 2:
+					System.out.println(2);
+					
+			}
+			
+			Output for the following cases:
+			
+				x = 0
+				
+					0
+					
+				x = 1
+				
+					1
+					2
+				
+				x = 2
+					
+					2
+					
+				x = 3
+				
+					def
+					0
+					
+			Note: Order of execution.
+			
+				1. Check for the case, even though the default is at the first line, JVM will ask default to wait until it finds the match.
+					if there is a match execute that case until break or end of the switch.
+					
+				2. If there is no match, JVM will fall back to switch, from there all the codes will be executed until the break or end of the switch.

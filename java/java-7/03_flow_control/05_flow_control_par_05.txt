@@ -1,0 +1,332 @@
+Flow-Control - Part-05: Iterative Statements (while, do-while)
+--------------------------------------------------------------
+
+	- for-loop:
+	
+		- for-loop is the most commonly used loop in Java.
+		
+		- If we know number of iterations in advance, then for-loop is the best choice.
+		
+		- Syntax:
+						1					2, 5, 8						4, 7						
+			for(initialization-section; conditional-check; increment/decrement-section){
+				loop body; // 3, 6
+			}
+			
+		- Curly braces are optional and without curly braces we can take only one statement under for-loop, which should not be declarative statement.
+		
+		- Examples:
+		
+			for(int i = 0; true; i++)
+				System.out.println("Hello");
+				
+			// Valid
+			
+			for(int i=0; i < 10; i++);
+			
+			// Valid
+			
+			for(int i = 0; i< 10; i++)
+				int x = 10;
+				
+			// Invalid
+			
+	- Initialization Section:
+	
+		- This part will be executed only once in loop lifecycle.
+		
+		- Here we can declare and initialize local variables of for-loop.
+		
+		- Here we can declare any number of variables but should of the same type. By mistake if we are trying to declare different data type variables
+		  then we will get compile time error.
+		  
+		- Examples:
+		
+			int i = 0; j = 0; // Valid
+			
+			int i =0, String s ="durga"; // invalid
+			
+			int i = 0; int j = 0; // Invalid
+			
+		- In the initialization-section we can take any valid Java statement including SOP.
+		
+			- Example:
+			
+				int i = 0;
+				
+				for(System.out.println("Hello boss U are sleeping"); i < 3; i++){
+					System.out.println("No boss u are only sleeping");
+				}
+				
+				Output:
+				
+					Hello boss u are sleeping
+					
+					No boss u are only sleeping
+					
+					No boss u are only sleeping
+					
+					No boss u are only sleeping
+					
+	- Conditional Check:
+	
+		- Here we can take any valid Java expression but should be of the type boolean.
+		
+		- This part is optional, if we are not taking anything then compiler will always place true.
+		
+		- Syntax:
+		
+			for (int i =0; true; i++){
+			}
+		
+		- Example:
+		
+			for(int i =0; true; i++){
+				System.out.println("Hello");
+			}
+			
+			Output: Above loop will print the Hello infinite number of times.
+		
+	- Increment or Decrement section:
+	
+		- In the increment/decrement-section we can take any valid statement including SOP.
+		
+		- Example:
+		
+			int i = 0;
+			
+			for(System.out.println("Hello");i< 3; System.out.println("Hi")){
+				i++;
+			}
+			
+			Output:
+			
+				Hello
+				
+				Hi
+				
+				Hi
+				
+				Hi
+				
+	- All three parts of for-loop are independent of each other and optional.
+	
+		- Example:
+		
+			for( ; ;){ ==> Infinite loop
+				System.out.println("Hello");
+			}
+			
+			for( ; ;); ==> Infinite loop
+			
+	- Unrechable statement is applicable for for-loops also:
+	
+		- Example_1:
+		
+			for(int i =0; true; i++){
+				System.out.println("Hello");
+			}
+			System.out.println("Hi");
+			
+			CE: unrechable statement // for sysout of Hi
+			
+			
+		- Example_2:
+		
+			for(int i=0; false; i++){
+				System.out.println("Hello");
+			}
+			System.out.println("Hi");
+			
+			CE: unrechable statement '{'
+			
+		- Example_3:
+		
+			for(int i=0; ; i++){
+				System.out.println("Hello");
+			}
+			System.out.println("Hi");
+			
+			CE: unrechable statement
+			
+		- Example_4:
+		
+			int a = 10, b = 20;
+			
+			for(int i = 0; a< b; i++){
+				System.out.println("Hello");
+			}
+			System.out.println("Hi");
+			
+			Output:
+			
+				Hello
+				
+				Hello
+				
+				Hello
+				
+				  .
+				  .
+				  .
+				  
+		- Example_5:
+		
+			int a =10; b =20;
+			
+			for(int i =0; a > b; i++){
+				System.out.println("Hello");
+			}
+			
+			System.out.println("Hi");
+			
+			Output:
+			
+				Hi
+				
+		- Example_6:
+		
+			final int a =10; b =20;
+			
+			for(int i =0; a < b; i++){
+				System.out.println("Hello");
+			}
+			
+			System.out.println("Hi");
+			
+			CE: unrechable statement // for sysout of Hi
+			
+		- Example_7:
+		
+			final int a =10; b =20;
+			
+			for(int i =0; a > b; i++){
+				System.out.println("Hello");
+			}
+			
+			System.out.println("Hi");
+			
+			CE: unrechable statement '{'
+			
+	- for-each loop (Enhanced for loop):
+	
+		- Introduced in 1.5 Version
+		
+		- It is specially desinged to retrieve elements of arrays and collections.
+		
+		- Example_1:
+		
+			- To print elements of one-dimensional array.
+			
+				int[] x = {10, 20, 30, 40};
+			
+			Normal for-loop										for each loop
+			
+		
+		for(int i=0; i < x.length; i++){						for(int x1: x){	
+			System.out.println(x[i]);								System.out.println(x1);
+		}
+			
+		
+		- Example_2:
+		
+			int[][] x = {{10, 20, 30},{40, 50}};  ==> (|				|				|)
+														(|	10|	20|	30|)    (|	40|	50|)
+			
+			
+			
+		
+			Normal for-loop										for each loop
+			
+			
+		for(int i =0; i< x.length; i++){						for(int[] x1: x){
+			for(int j =0; j< x[i].lenght; j++){						for(int x2: x1){
+				System.out.println(x[i][j]);							System.out.println(x2)
+			}														}
+		}														}
+		
+		
+		- Example_3:
+		
+			- Iterating three dimensional array:
+			
+				|				|								|
+				
+				|		|				|				|			|				|
+				
+			(|	10|	20|)	(|	30|	40|)			(|	50|	60|	70)	(|	80|	90|	100|)
+			
+			for(int[][] x1: x){
+				for(int[] x2: x){
+					for(int x3: x2){
+						System.out.println(x3)-;
+					}
+				}
+			}
+			
+		- for-each loop is the best choice for retrieve elements of arrays and collections. But its limitation is, it is applicable only for arrays
+		  and collections and it is not a general purpose loop.
+		  
+		  - Example:
+		  
+			for(int i =0; i<10; i++){
+				System.out.println("Hello");
+			}
+			
+			Note: We can't write an equivalent for-each loop for the above loop.
+			
+		- By using normal for-loop we can print array elements either is original order or in reverse order. But using for-each loop we can print 
+		  array elements only in original order not in reverse order.
+		  
+		  - Example:
+		  
+			int x = {10, 20, 30, 40, 50};
+			
+			for(int i = x.length - 1; i>=0; i--){
+				System.out.println(x[i]);
+			}
+			
+			Note: We can't write the equivalent for-each for the above scenario directly.
+			
+	- Iterable Interface:
+	
+		- Syntax:
+		
+			for(eachitem x: target){
+				
+			}
+			
+			target ===> Array / Collection ===> It should be an iterable object.
+			
+		- The target in for-each loop should be iterable object.
+		
+		- An object is said to be Iterable, if and only if corresponding class implements java.lang.Iterable interface.
+		
+		- Iterable interface introduced in 1.5 Version.
+		
+		- It contains only one method iterator();
+		
+			public Iterator iterator();
+			
+		- All Array related classes and Collection implemented classes already implement Iterable interface.
+		
+		- Being a programmer we are not required to do anything. Just we should aware the point.
+		
+	- Differences between Iterator and Iterable:
+	
+			Iterator(I)											Iterable(I)
+		
+		1) It is related to collections						1) It is related to for-each loop.
+		
+		2) We can use to retrieve elements of collections	2) The target element in for-each loop should be iterable.
+		   one by one.
+		   
+		3) Present in java.util package						3) Present in java.lang package.
+		
+		4) It contains three methods						4) It contains one method.
+		
+				hasNext();											iterator();
+				next();
+				remove();
+		
+	

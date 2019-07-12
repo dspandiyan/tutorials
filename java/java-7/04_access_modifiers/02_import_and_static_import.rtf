@@ -1,0 +1,206 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf600
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww33100\viewh17920\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs28 \cf0 Declarations & Access Modifiers - Part-01 - Import & Static Import:\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+	- Types of import statements:\
+\
+		- Case_01:\
+ \
+			- There are two types of import statements\
+\
+				- Explicit class import\
+\
+				- Implicit class import\
+\
+			- Explicit class import:\
+\
+				- Eg: import java.util.ArrayList;\
+\
+				- It is highly recommended to use explicit class import, because it improves readability of the code.\
+ \
+				- Best suitable for Hitech city where readability is important.\
+\
+			- Implicit class import:\
+\
+				- Example:\
+\
+					import java.util.*\
+\
+				- Not recommended to use, because it reduces readability of the code.\
+\
+				- Best suitable for Ameerpet where typing is important.\
+		\
+		- Case_02:\
+\
+			- which of the following import statements are meaningful?\
+\
+				import java.util.ArrayList; // Valid, explicit import\
+\
+				import java.util.ArrayList.*; // Invalid, after class name there shouldn\'92t *\
+\
+				import java.util.*; // Valid, implicit import\
+\
+				import java.util; // Invalid, after package name either class name or * has to come.\
+\
+		- Case_03:\
+\
+			- Consider the following code:\
+\
+				class MyObject extends java.rmi.UniCastRemoteObject\{\
+ 				\}\
+\
+				- The code compiles fine, even though we are not writing import statement. Because we used fully qualified name.\
+\
+			- Note: Whenever we are using fully qualified name it is not required to write import statement. Similarly whenever we are writing import statement, it is not required to use fully qualified name.\
+\
+		- Case_04:\
+\
+			import java.util.*;\
+			import java.sql.*;\
+\
+			class Test\{\
+				public static void main(String[] args)\{\
+					Date d = new Date();\
+				\}\
+			\}\
+\
+			Output:\
+\
+			CE: reference to Date is ambiguous.\
+\
+			- Note:\
+\
+				- Even in the case of list also, we may get same ambiguity problem. Because it is available in both (util & awt) packages.\
+\
+		- Case_05:\
+\
+			- While resolving class names compiler will always gives the precedence in the following order:\
+\
+				1) Explicit class import.\
+\
+				2) Classes present in current working directory. (Default package)\
+\
+				3) Implicit class import.\
+\
+			- Example:\
+\
+				import java.util.Date;\
+				\
+				import java.sql.*;\
+\
+				class Test\{\
+					public static void main(String[] args)\{\
+						Date d = new Date();\
+						System.out.println(d.getClass().getName());\
+					\}\
+				\}\
+\
+				Output: java.util.Date\
+\
+				- In the above example util package date got considered.\
+\
+		- Case_06:\
+\
+			- Whenever we are importing a java package, all classes and interfaces present in the package by default available but not sub-package classes. If we want to use sub-package class compulsory we should write import statement until sub-package level.\
+\
+			- Example:\
+\
+				java\
+					util\
+						regex\
+\
+						Pattern\
+\
+				- To use Pattern class in our program which import statement is required?\
+\
+					import java.*;\
+				\
+					import java.util.*;\
+\
+					import java.util.regex.*; // This is the valid import\
+\
+					No import required\
+\
+		- Case_07:\
+\
+			- All classes and interfaces present in the following packages are by default available to every java program. Hence we are not required to write import statement.\
+\
+				1) java.lang\
+\
+				2) default package (Current working directory).\
+\
+		- Case_08:\
+\
+			- Import statements is totally compile time related concept, if more number of imports then more will be the compile time.\
+\
+			- But there is no effect on execution time.( Runtime).\
+\
+		- Case_09:\
+\
+			- difference between C language # include and java language import statement:\
+\
+				- In the case of C language # include all input output header files will be loaded at beginning only. ( At translation time). Hence it is static include.\
+\
+				- But in the case of java import statement no .class file will be loaded at the beginning. Whenever we are using a particular class then only corresponding .class file will be loaded. This is like dynamic include. Or load on demand or load on fly.\
+\
+	- Note: \
+\
+		- 1.5 version new features:\
+\
+			for-each loop\
+\
+			var-args method\
+\
+			auto boxing and unboxing\
+\
+			Generics\
+\
+			co-variant return types\
+\
+			Queue\
+\
+			Annotations\
+\
+			ENUM\
+\
+			static import\
+\
+	- static import:\
+	\
+		- Introduced in version1.5.\
+\
+		- According to SUN, usage of static import reduces length of the code and improves readability.\
+\
+		- But according to worldwide programming experts (like us) usage of static import creates confusion and reduces readability. Hence if there is no specific then it is not recommended to use static import.\
+\
+		- Usually we can access static members by using class name, but whenever we are static import we can access static members directly without class name.\
+\
+		- Without static import						                                                                \
+\
+			class Test\{\
+				public static void main(String[] args)\{\
+					System.out.println(Math.sqrt(4));\
+					System.out.println(Math.max(10, 20));\
+					System.out.println(Math.random());\
+				\}\
+			\}									\
+\
+		- With static import:\
+\
+			import static java.lang.Math.sqrt;\
+			import static java.lang.Math.*;\
+		\
+\
+			class Test\{\
+				public static void main(String[] args)\{\
+					System.out.println(Math.sqrt(4));\
+					System.out.println(Math.max(10, 20));\
+					System.out.println(Math.random());\
+				\}\
+			\}}

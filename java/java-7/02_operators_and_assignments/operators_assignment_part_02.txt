@@ -1,0 +1,188 @@
+Operators & Assignments - Part-02:
+----------------------------------
+
+	- String concatination operator (+):
+	
+		- The only overloaded operator in Java, is + operator.
+		
+		- Sometimes it acts as arithmetic addition operator and sometimes it acts as String concatination operator.
+		
+		- If atleast one argument is String type, then + operator acts as concatination operator and if both arguments are number type, then + operator
+		  acts as arithmetic addition operator.
+		  
+		- Note: If the expression has more than one operator, the expression is evaluated based on the operator precedence. If the expression contains
+		        more than one operator of same type, then the expression is evaluated from left to right.
+				
+		- Example_1:
+		
+			String a = "durga";
+			int b=10, c=20, d=30;
+			
+			System.out.println(a+b+c+d); // durga102030
+			
+			System.out.println(b+c+d+a); //60durga
+			
+			System.out.println(b+c+a+d); //30durga30
+			
+			System.out.println(b+a+c+d); // 10durga2030
+			
+		- Note: Expression evaluation for case1:
+		
+			a+b+c+d
+			
+			Step1: a+b (a is a String, so the + operator acts as a concatination operator).
+			
+			Step2: "durga10" + c+d --> durga10+c (durga1020) - Even this expression has a String so the + operator acts as concatination.
+			
+			Step3: "durga1020" + d --> durga102030 - Even this expression has a String so the + operator acts as concatination.
+			
+		- Example_2:
+		
+			- Consider the following declarations:
+			
+				String a = "durga";
+				
+				int b=10, c=20, d=30;
+				
+				- Which of the following expressions are valid?
+				
+					1) a = b+c+d; // Invalid
+					
+						CE: incompatible types
+							found: int
+							required: String
+					
+					2) a = a+b+c; // Valid
+					
+					3) b = a+c+d; // Invalid
+					
+						CE: incompatible types
+							found: String
+							required: int
+							
+					4) b = b+c+d; // Valid
+					
+	- Relational Operators( <, <=, > , >=):
+	
+		- We can apply relational operators, for every primitive type except boolean.
+		
+		- Example:
+		
+			System.out.println(10 < 20); //true
+			
+			System.out.println('a' < 10); //false
+			
+			System.out.println('a' < 97.6); //true
+			
+			System.out.println('a' > 'A'); //true
+			
+			System.out.println(true > false); // Invalid
+			
+			CE: operator > cannot be applied to boolean , boolean.
+			
+		- We can't apply relational operators for object type.
+		
+			System.out.println("durga123" > "durga123");
+ 	
+				CE: operator > cannot be applied to java.lang.String, java.lang.String
+				
+		- Nesting of relational operators is not allowed in Java, otherwise we will get compile time error.
+		
+			System.out.println(10 < 20 < 30);
+			
+			CE: operator < cannot be applied to boolean, int
+			
+	- Equality Operators: (==, !=)
+	
+		- We can apply equality operators for every primitive including boolean type also.
+		
+		- Example:
+		
+			System.out.println(10 == 20); // false
+			
+			System.out.println('a' == 'b'); //false
+			
+			System.out.println('a' == 97.00); //true
+			
+			System.out.println(false == false); //true
+			
+		- We can apply equality opertors for object types also, for object reference r1, r2
+		
+		- r1 == r2 returns true, if and only if both references pointing to the same object (reference comparision or address comparision).
+		
+		
+			r1  ------->	|		|
+							|		|
+							|Object	|
+			r2	------->	|		|
+			
+			- Example_1:
+			
+				Thread t1 = new Thread();
+				
+				Thread t2 = new Thread();
+				
+				Thread t3 = t1;
+				
+				System.out.println(t1 == t2); //false
+				
+				System.out.println(t1 == t3); //true
+				
+		- If we apply equality operators for object types, then compulsory there should be some relation between arguments types. (Either child to 
+		  parent or parent to child or same type) otherwise we will get compile time error saying, incomparable types.
+		  
+			- Example:
+			
+				Thread t = new Thread();
+				
+				Object o = new Object();
+				
+				String s = new String();
+				
+				System.out.println(t == o); //false
+				
+				System.out.println(o == s); //false
+		  
+				System.out.println(s == t); //Invalid
+				
+					CE: incomparable types java.lang.String and java.lang.Thread
+					
+		- Difference between  == operator and .equals() method:
+		
+			- In general we can use == operator for reference comparision (address comparision) and .equals() method for content comparision.
+						
+			- Example:
+			
+				String s1 = new String("saravana");
+				
+				String s2 = new String("saravana");
+				
+				System.out.println(s1 == s2); //false
+				
+				System.out.println(s1.equals(s2)); //true
+				
+		- Note: 
+		
+			- For any object reference r,
+			
+				r == null is always false.
+				
+			- But null == null is always true.
+			
+			- Example:
+			
+				String s = new String("saravana");
+				
+				System.out.println(s == null); //false
+				
+				String s = null;
+				
+				System.out.println(s == null); //false
+			
+				System.out.println(null == null); //true
+		
+			
+					
+					
+					
+					

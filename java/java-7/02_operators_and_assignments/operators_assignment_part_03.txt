@@ -1,0 +1,194 @@
+Operators & Assignments - Part-03:
+----------------------------------
+
+	- instanceof and bitwise operator:
+	
+		- We can use instanceof operator to check whether the given object is of particular type or not.
+		
+		- Example:
+		
+			List list = new ArrayList();
+			
+			list.add(new Student());
+			list.add(new Customer());
+			list.add("Saravana");
+			
+			Object o = list.get(0);
+			
+			if(o instanceof Student){
+				Student s = (Student)o;
+				//Perform student related operations.
+			} else if (o instanceof Customer){
+				Customer c = (Customer)o;
+				//Perform customer related operations.
+			}
+			
+		- Syntax:
+		
+		
+			r instanceof x
+			
+			r --> object reference
+			
+			x --> class/interface name
+			
+		- Exampl_1:
+		
+			Thread t = new Thread();
+			
+			Thread extends Object implements Runnable
+			
+			System.out.println(t instanceof Thread); // true
+			
+			System.out.println(t instanceof Object); // true
+			
+			System.out.println(t instanceof Runnable); // true
+			
+		- To use instanceof operator compulsory there should be some relation between argument types (either child to parent or parent to child or same
+		  type) otherwise we will get compile time error saying inconvertable types.
+		  
+			- Example:
+			
+				Thread t = new Thread();
+				
+				System.out.println(t instanceof String); // Invalid
+				
+				CE: inconvertible types
+				
+					found: java.lang.Thread
+					
+					required: java.lang.String
+					
+		- Note:
+		
+			- For any class or interface X, null instanceof x is always false.
+			
+			- Example:
+			
+				System.out.println(null instanceof Thread); // false
+			
+				System.out.println(null instanceof Object); // false
+			
+				System.out.println(null instanceof Runnable); // false
+				
+	- bitwise operators: (&, |, ^) ^ --> is called X-OR
+	
+		& --> AND ====> Returns true iff both arguments are true.
+		
+		| --> OR  ====> Returns true iff atleast one argument is true.
+		
+		^ --> X-OR ===> Returns true iff both arguments are different. 
+		
+			- Example:
+			
+				System.out.println(true & false); // false
+		
+				System.out.println(true | false); // true
+				
+				System.out.println(true ^ false); // true
+				
+		- We can apply bitwise operators (&, |, ^ ) for integral types also.
+		
+			- Example:
+			
+				System.out.println(4 & 5); // 4
+				
+					- It does the comparision based on bitwise.
+					
+						100
+						101
+						----
+						100 ====> 4
+						----
+				
+				System.out.println(4 | 5); // 5
+				
+						100
+						101
+						----
+						101 ====> 5
+						----
+				
+				System.out.println(4 ^ 5); // 1
+				
+						100
+						101
+						----
+						001 ====> 1
+						----
+						
+	- bitwise complement operator (~)
+	
+		- We can apply this operator only for integral types but not for boolean type, if we are trying to apply for boolean type then we will get
+		  compile time error.
+		  
+			- Example:
+			
+				System.out.println(~ true); // Invalid
+				
+				CE: operator ~ cannot be applied for boolean
+				
+			- Example:
+			
+				System.out.println(~4); // -5
+				
+				Reason:
+				
+					- 4 is an integer, so it should be calculated in 32 bit form.
+					
+						- 4 represented in 32bit ===> 00000...0100
+						
+						- 1st digit specifies the sign type, so we have to leave it.
+						
+					- Take a negation of the above values:
+					
+						11111...1011
+						
+					- Negation value of the first digit is 1, which means -
+					
+					- Now take the two complement of the above value.
+					
+						1's complement:
+						
+							0000...0100
+							
+						1's complement
+						
+							0000...0100
+									  1
+							------------
+									101
+							------------
+							
+					- So the answer is -5
+						
+				Note: 
+				
+					- The most significant bit acts as signed bit, 0 means positive number, 1 means negative number.
+					
+					- Positive numbers will represented directly in a memory. Whereas negative numbers will be represented indirectly in a memory.
+					  In 2's complement form.
+				
+	- Boolean complement operator: (!)
+	
+		- We can apply this operator only for boolean types, but not for integral types.
+		
+			- Example:
+			
+				System.out.println(!4); // Invalid
+				
+				CE: operator ! cannot be applied to int
+				
+				System.out.println(!false); // true
+				
+				
+	- Conclusion:
+	
+		- operators (&, |, ^ ) are applicable for both boolean and integral types.
+		
+		- operator (~) is applicable only for integral but not for boolean.
+		
+		- operator (!) is applicable only for boolean but not for integral.
+		
+			
+				
